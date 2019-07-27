@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     public void launchBeranda(View view) {
         Intent intent = new Intent(this, Beranda.class);
         startActivity(intent);
+
+        finish();
     }
 
     @Override
