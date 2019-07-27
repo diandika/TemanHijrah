@@ -341,12 +341,13 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
         cal.set(Calendar.MINUTE, c.getTime().getMinutes());
 
         long diff = Calendar.getInstance().getTimeInMillis() - cal.getTimeInMillis();
-        if (diff < 0) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                    cal.getTimeInMillis(), 24 * 60 * 60 * 1000,
-                    intentArray.get(intentArray.indexOf(pendingIntent)));
-            Log.i("Next Alarm will be in:", String.valueOf(cal.getTime()));
+        if (diff > 0) {
+            cal.add(Calendar.DAY_OF_MONTH, 1);
         }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                cal.getTimeInMillis(), 24 * 60 * 60 * 1000,
+                intentArray.get(intentArray.indexOf(pendingIntent)));
+        Log.i("Next Alarm will be in:", String.valueOf(cal.getTime()));
     }
 
     public void setAlarm(View view) {
