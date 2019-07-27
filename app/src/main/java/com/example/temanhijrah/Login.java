@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,18 +38,23 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchBeranda(String id, String name, String accessToken) {
+    public void launchBeranda(String id, String email, String password, String name, String accessToken, boolean rememberMe) {
 
         Intent intent = new Intent(this, Beranda.class);
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         bundle.putString("name", name);
         bundle.putString("accessToken", accessToken);
+        if (rememberMe) {
+            bundle.putString("email", email);
+            bundle.putString("password", password);
+        }
         intent.putExtras(bundle);
         FragmentMain fragmentMain = new FragmentMain();
         fragmentMain.setArguments(bundle);
 
         startActivity(intent);
+        finish();
     }
 
     public void login(View view) {
@@ -57,6 +63,9 @@ public class Login extends AppCompatActivity {
 
         editText = findViewById(R.id.input_password);
         String password = editText.getText().toString();
+
+        CheckBox rememberMeCheckbox = findViewById(R.id.remember_me);
+        final boolean rememberMe = rememberMeCheckbox.isChecked();
 
         if (username.length() == 0 || password.length() == 0) {
             if (username.length() == 0) {
@@ -87,8 +96,10 @@ public class Login extends AppCompatActivity {
                         String id = result.getId();
                         String name = result.getFirstName() + " " + result.getLastName();
                         String accessToken = result.getAccessToken();
+                        String email = result.getUsername();
+                        String password = result.getPassword();
 
-                        launchBeranda(id, name, accessToken);
+                        launchBeranda(id, email, password, name, accessToken, rememberMe);
                     } else if (response.code() / 100 == 4) {
                         TextView error = (TextView) findViewById(R.id.not_found);
                         error.setVisibility(View.VISIBLE);

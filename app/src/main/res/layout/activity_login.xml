@@ -136,6 +136,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:id="@+id/remember_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/ingat_saya"

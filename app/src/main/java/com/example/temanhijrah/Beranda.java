@@ -1,6 +1,8 @@
 package com.example.temanhijrah;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +24,8 @@ public class Beranda extends AppCompatActivity implements FragmentChangeListener
     private TextView mTextMessage;
 
     private String id;
+    private String email;
+    private String password;
     private String name;
     private String accessToken;
 
@@ -66,6 +70,8 @@ public class Beranda extends AppCompatActivity implements FragmentChangeListener
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getString("id");
+        email = bundle.getString("email");
+        password = bundle.getString("password");
         name = bundle.getString("name");
         accessToken = bundle.getString("accessToken");
         String msg = id != null ? id : "null";
@@ -78,6 +84,24 @@ public class Beranda extends AppCompatActivity implements FragmentChangeListener
 
         Toolbar toolbar = findViewById(R.id.toolbar_beranda);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("id", id);
+        editor.putString("email", email);
+        editor.putString("accessToken", accessToken);
+        editor.putString("password", password);
+        editor.commit();
+
+        email = sharedPref.getString("email", "example");
+        password = sharedPref.getString("password", "password");
+
+        Log.i("email", email);
+        Log.i("password", password);
     }
 
     @Override

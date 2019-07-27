@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -127,6 +129,14 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         getJadwal(Calendar.getInstance().getTime());
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String id = sharedPref.getString("id", "uname");
+        String email = sharedPref.getString("email", "example@google.com");
+        String accessToken = sharedPref.getString("accessToken", "default");
+        String password = sharedPref.getString("password", "password");
+        Log.i("email", email);
+        Log.i("password", password);
     }
 
     @Override

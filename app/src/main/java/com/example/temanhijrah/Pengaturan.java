@@ -1,6 +1,8 @@
 package com.example.temanhijrah;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -45,5 +47,11 @@ public class Pengaturan extends AppCompatActivity {
     public void launchAbout(View view) {
         Intent intent = new Intent(this, About.class);
         startActivity(intent);
+    }
+
+    public void logout(View view) {
+        SharedPreferences sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear().commit();
     }
 }
