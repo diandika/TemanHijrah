@@ -19,6 +19,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -339,9 +340,44 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
         cal.set(Calendar.HOUR_OF_DAY, c.getTime().getHours());
         cal.set(Calendar.MINUTE, c.getTime().getMinutes());
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                cal.getTimeInMillis(),
-                intentArray.get(intentArray.indexOf(pendingIntent)));
-        Log.i("Next Alarm will be in:", String.valueOf(System.currentTimeMillis()));
+        long diff = Calendar.getInstance().getTimeInMillis() - cal.getTimeInMillis();
+        if (diff < 0) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                    cal.getTimeInMillis(), 24 * 60 * 60 * 1000,
+                    intentArray.get(intentArray.indexOf(pendingIntent)));
+            Log.i("Next Alarm will be in:", String.valueOf(cal.getTime()));
+        }
+    }
+
+    public void setAlarm(View view) {
+        String waktu = "";
+        int viewText = view.getId();
+        switch (viewText) {
+            case R.id.alarm_imsak:
+                waktu = "Imsak";
+                break;
+            case R.id.alarm_subuh:
+                waktu = "Subuh";
+                break;
+            case R.id.alarm_zuhur:
+                waktu = "Dzuhur";
+                break;
+            case R.id.alarm_ashar:
+                waktu = "Ashar";
+                break;
+            case R.id.alarm_maghrib:
+                waktu = "Maghrib";
+                break;
+            case R.id.alarm_isya:
+                waktu = "Isya";
+                break;
+        }
+        createDialog(waktu);
+    }
+
+    public void createDialog(String waktu) {
+        DialogFragment dialogFragment = new AlarmFragment(waktu);
+        dialogFragment.setCancelable(false);
+        dialogFragment.show(getSupportFragmentManager(), "Adzan");
     }
 }

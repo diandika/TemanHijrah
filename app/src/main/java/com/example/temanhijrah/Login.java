@@ -54,6 +54,7 @@ public class Login extends AppCompatActivity {
         fragmentMain.setArguments(bundle);
 
         startActivity(intent);
+
         finish();
     }
 

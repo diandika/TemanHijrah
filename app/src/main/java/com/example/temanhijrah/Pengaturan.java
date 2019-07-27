@@ -53,5 +53,8 @@ public class Pengaturan extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear().commit();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

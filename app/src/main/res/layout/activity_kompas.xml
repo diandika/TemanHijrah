@@ -177,10 +177,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_imsak"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,10 +208,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_subuh"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -234,10 +238,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_zuhur"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -262,10 +268,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_ashar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -290,10 +298,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_maghrib"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -318,10 +328,12 @@
                         android:fontFamily="@font/nunito_sans_semibold"
                         android:textSize="14sp"/>
                     <ImageView
+                        android:id="@+id/alarm_isya"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/alarm"
-                        android:tint="@color/textPrimary"/>
+                        android:tint="@color/textPrimary"
+                        android:onClick="setAlarm" />
                 </LinearLayout>
             </LinearLayout>
 
