@@ -194,17 +194,17 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
 
                                         if (jadwal != null) {
                                             String zuhur = jadwal.getDhuhr();
-                                            setAlarm(convStrToDate(zuhur), REQUEST_ZUHUR);
+                                            setAlarm(convStrToDate(zuhur), REQUEST_ZUHUR, "Dzuhur");
                                             String ashar = jadwal.getAsr();
-                                            setAlarm(convStrToDate(ashar), REQUEST_ASHR);
+                                            setAlarm(convStrToDate(ashar), REQUEST_ASHR, "Ashar");
                                             String magrib = jadwal.getMaghrib();
-                                            setAlarm(convStrToDate(magrib), REQUEST_MAGHRIB);
+                                            setAlarm(convStrToDate(magrib), REQUEST_MAGHRIB, "Maghrib");
                                             String isya = jadwal.getIsha();
-                                            setAlarm(convStrToDate(isya), REQUEST_ISHA);
+                                            setAlarm(convStrToDate(isya), REQUEST_ISHA, "Isya");
                                             String subuh = jadwal.getFajr();
-                                            setAlarm(convStrToDate(subuh), REQUEST_FAJR);
+                                            setAlarm(convStrToDate(subuh), REQUEST_FAJR, "Subuh");
                                             String imsak = jadwal.getImsak();
-                                            setAlarm(convStrToDate(imsak), REQUEST_IMSAK);
+                                            setAlarm(convStrToDate(imsak), REQUEST_IMSAK, "");
                                             Log.d("respon :", "" + zuhur);
                                             TextView txtDzuhur = findViewById(R.id.time_dzuhur);
                                             txtDzuhur.setText(zuhur);
@@ -329,9 +329,10 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
         getJadwal(c.getTime());
     }
 
-    public void setAlarm(Calendar c, int requestCode) {
+    public void setAlarm(Calendar c, int requestCode, String strShalat) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("shalat", strShalat);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
         intentArray.add(pendingIntent);
 
@@ -341,13 +342,15 @@ public class Kompas extends AppCompatActivity implements SensorEventListener {
         cal.set(Calendar.MINUTE, c.getTime().getMinutes());
 
         long diff = Calendar.getInstance().getTimeInMillis() - cal.getTimeInMillis();
-        if (diff > 0) {
+        if (diff > 0 && strShalat != "Ashar") {
             cal.add(Calendar.DAY_OF_MONTH, 1);
+        } else {
+            Log.i("Next Alarm will be in:", String.valueOf(cal.getTime()));
         }
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 cal.getTimeInMillis(), 24 * 60 * 60 * 1000,
                 intentArray.get(intentArray.indexOf(pendingIntent)));
-        Log.i("Next Alarm will be in:", String.valueOf(cal.getTime()));
+
     }
 
     public void setAlarm(View view) {
